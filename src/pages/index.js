@@ -113,12 +113,12 @@ const Index = ({ navigate }) => {
     _manuallyFlushTimer,
   } = useCountdown({ initialMinutes: timerSettings[selectedTimer] });
 
-  useEffect(
-    () => {
-      _manuallyFlushTimer(timerSettings[selectedTimer]);
-    },
-    [timerSettings.focusTime, timerSettings.breakTime, selectedTimer],
-  );
+  // useEffect(
+  //   () => {
+  //     _manuallyFlushTimer(timerSettings[selectedTimer]);
+  //   },
+  //   [timerSettings.focusTime, timerSettings.breakTime, selectedTimer],
+  // );
 
   if (typeof window !== 'undefined' && !hasVisited) {
     navigate('/about');
