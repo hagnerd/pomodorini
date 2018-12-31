@@ -8,89 +8,6 @@ import useCountdown from '../hooks/useCountdown';
 import PlayIcon from '../components/play-icon';
 import StopIcon from '../components/stop-icon';
 
-function CountdownClock({ minutes, seconds, isRunning }) {
-  return (
-    <React.Fragment>
-      <h2
-        style={{
-          marginTop: 100,
-          marginBottom: 50,
-          fontSize: 90,
-          color: isRunning ? '#569462' : '#2D3441',
-        }}
-      >
-        {minutes}:{seconds}
-      </h2>
-    </React.Fragment>
-  );
-}
-
-const Title = styled.h1`
-  color: ${({ selected }) => (selected ? '#6CA37C' : '#CACACA')};
-  margin: 10px 20px;
-`;
-
-const Button = styled.button`
-  border: none;
-  background: none;
-  cursor: pointer;
-
-  &:hover {
-    color: '#DE6351';
-    background-color: #2d3441;
-  }
-`;
-
-function TimerTitle({ selectedTimer, setSelectedTimer }) {
-  return selectedTimer === 'focusTime' ? (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-      }}
-    >
-      <Button onClick={() => setSelectedTimer('focusTime')}>
-        <Title selected>Focus</Title>
-      </Button>
-      <div
-        style={{
-          height: 35,
-          width: 4,
-          backgroundColor: '#2D3441',
-          margin: '10px',
-        }}
-      />
-      <Button onClick={() => setSelectedTimer('breakTime')}>
-        <Title>Break</Title>
-      </Button>
-    </div>
-  ) : (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-      }}
-    >
-      <Button onClick={() => setSelectedTimer('focusTime')}>
-        <Title>Focus</Title>
-      </Button>
-      <div
-        style={{
-          height: 35,
-          width: 4,
-          backgroundColor: '#2D3441',
-          margin: '10px',
-        }}
-      />
-      <Button onClick={() => setSelectedTimer('breakTime')}>
-        <Title selected>Break</Title>
-      </Button>
-    </div>
-  );
-}
-
 const Index = ({ navigate }) => {
   const [hasVisited] = useLocalStorage('pomodoriniHasVisited', false);
 
@@ -160,6 +77,89 @@ const Index = ({ navigate }) => {
     </Layout>
   );
 };
+
+const Title = styled.h1`
+  color: ${({ selected }) => (selected ? '#6CA37C' : '#CACACA')};
+  margin: 10px 20px;
+`;
+
+const Button = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  &:hover {
+    color: '#DE6351';
+    background-color: #2d3441;
+  }
+`;
+
+function TimerTitle({ selectedTimer, setSelectedTimer }) {
+  return selectedTimer === 'focusTime' ? (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+      }}
+    >
+      <Button onClick={() => setSelectedTimer('focusTime')}>
+        <Title selected>Focus</Title>
+      </Button>
+      <div
+        style={{
+          height: 35,
+          width: 4,
+          backgroundColor: '#2D3441',
+          margin: '10px',
+        }}
+      />
+      <Button onClick={() => setSelectedTimer('breakTime')}>
+        <Title>Break</Title>
+      </Button>
+    </div>
+  ) : (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+      }}
+    >
+      <Button onClick={() => setSelectedTimer('focusTime')}>
+        <Title>Focus</Title>
+      </Button>
+      <div
+        style={{
+          height: 35,
+          width: 4,
+          backgroundColor: '#2D3441',
+          margin: '10px',
+        }}
+      />
+      <Button onClick={() => setSelectedTimer('breakTime')}>
+        <Title selected>Break</Title>
+      </Button>
+    </div>
+  );
+}
+
+function CountdownClock({ minutes, seconds, isRunning }) {
+  return (
+    <React.Fragment>
+      <h2
+        style={{
+          marginTop: 100,
+          marginBottom: 50,
+          fontSize: 90,
+          color: isRunning ? '#569462' : '#2D3441',
+        }}
+      >
+        {minutes}:{seconds}
+      </h2>
+    </React.Fragment>
+  );
+}
 
 function TimerControls({ onStart, onEnd, isRunning }) {
   return (
