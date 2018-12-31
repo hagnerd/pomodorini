@@ -7,7 +7,7 @@ export default function useCountdown({ initialMinutes = 25 } = {}) {
     'pomodoriniIsRunning',
     false,
   );
-  const [timeStarted, setTimeStarted, clearTimeStarted] = useLocalStorage(
+  const [timeStarted, setTimeStarted] = useLocalStorage(
     'pomodoriniTimeStarted',
     Date.now(),
   );
