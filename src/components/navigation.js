@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link as Glink } from 'gatsby';
 import styled from '@emotion/styled';
 import { Location } from '@reach/router';
 
@@ -9,8 +9,18 @@ import BackArrowIcon from './back-arrow-icon';
 const Nav = styled.nav`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  height: 70px;
   width: 100%;
-  margin: 20px 0;
+  margin-bottom: 20px;
+
+  background-color: #6ca37c;
+
+  box-shadow: 4px 4px #2d3441;
+`;
+
+const Link = styled(Glink)`
+  padding: 18px 10px 10px 10px;
 `;
 
 export default function Navigation() {
