@@ -1,12 +1,22 @@
-import React, { useEffect } from 'react';
-import styled from '@emotion/styled';
+import React from 'react';
 
 import Layout from '../components/layout';
+import PlayIcon from '../components/play-icon';
+import StopIcon from '../components/stop-icon';
+
 import useLocalStorage from '../hooks/useLocalStorage';
 import useCountdown from '../hooks/useCountdown';
 
-import PlayIcon from '../components/play-icon';
-import StopIcon from '../components/stop-icon';
+import {
+  Column,
+  Divider,
+  HiddenButton,
+  SubtleButton,
+  Time,
+  TimerControlsContainer,
+  Title,
+  TitleContainer,
+} from './_index.elements';
 
 const Index = ({ navigate }) => {
   const [hasVisited] = useLocalStorage('pomodoriniHasVisited', false);
@@ -49,13 +59,7 @@ const Index = ({ navigate }) => {
           setSelectedTimer={setSelectedTimer}
         />
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+        <Column>
           <CountdownClock
             minutes={time.minutes}
             seconds={time.seconds}
@@ -66,118 +70,62 @@ const Index = ({ navigate }) => {
             onEnd={endCountdown}
             isRunning={isRunning}
           />
-        </div>
+        </Column>
 
         <NextTimer
           hasCompleted={hasCompleted}
           selectedTimer={selectedTimer}
-          setSelectedTimer={selectedTimer}
+          setSelectedTimer={setSelectedTimer}
         />
       </React.Fragment>
     </Layout>
   );
 };
 
-const Title = styled.h1`
-  color: ${({ selected }) => (selected ? '#6CA37C' : '#CACACA')};
-  margin: 10px 20px;
-`;
-
-const Button = styled.button`
-  border: none;
-  background: none;
-  cursor: pointer;
-
-  &:hover {
-    color: '#DE6351';
-    background-color: #2d3441;
-  }
-`;
-
 function TimerTitle({ selectedTimer, setSelectedTimer }) {
   return selectedTimer === 'focusTime' ? (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-      }}
-    >
-      <Button onClick={() => setSelectedTimer('focusTime')}>
+    <TitleContainer>
+      <SubtleButton onClick={() => setSelectedTimer('focusTime')}>
         <Title selected>Focus</Title>
-      </Button>
-      <div
-        style={{
-          height: 35,
-          width: 4,
-          backgroundColor: '#2D3441',
-          margin: '10px',
-        }}
-      />
-      <Button onClick={() => setSelectedTimer('breakTime')}>
+      </SubtleButton>
+      <Divider />
+      <SubtleButton onClick={() => setSelectedTimer('breakTime')}>
         <Title>Break</Title>
-      </Button>
-    </div>
+      </SubtleButton>
+    </TitleContainer>
   ) : (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-      }}
-    >
-      <Button onClick={() => setSelectedTimer('focusTime')}>
+    <TitleContainer>
+      <SubtleButton onClick={() => setSelectedTimer('focusTime')}>
         <Title>Focus</Title>
-      </Button>
-      <div
-        style={{
-          height: 35,
-          width: 4,
-          backgroundColor: '#2D3441',
-          margin: '10px',
-        }}
-      />
-      <Button onClick={() => setSelectedTimer('breakTime')}>
+      </SubtleButton>
+      <Divider />
+      <SubtleButton onClick={() => setSelectedTimer('breakTime')}>
         <Title selected>Break</Title>
-      </Button>
-    </div>
+      </SubtleButton>
+    </TitleContainer>
   );
 }
 
 function CountdownClock({ minutes, seconds, isRunning }) {
   return (
     <React.Fragment>
-      <h2
-        style={{
-          marginTop: 100,
-          marginBottom: 50,
-          fontSize: 90,
-          color: isRunning ? '#569462' : '#2D3441',
-        }}
-      >
+      <Time isRunning={isRunning}>
         {minutes}:{seconds}
-      </h2>
+      </Time>
     </React.Fragment>
   );
 }
 
 function TimerControls({ onStart, onEnd, isRunning }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <button
-        onClick={onStart}
-        style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
-        disabled={isRunning}
-      >
+    <TimerControlsContainer>
+      <HiddenButton onClick={onStart} disabled={isRunning}>
         <PlayIcon color={isRunning ? '#CACACA' : undefined} />
-      </button>
-      <button
-        onClick={onEnd}
-        style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
-      >
+      </HiddenButton>
+      <HiddenButton onClick={onEnd}>
         <StopIcon />
-      </button>
-    </div>
+      </HiddenButton>
+    </TimerControlsContainer>
   );
 }
 

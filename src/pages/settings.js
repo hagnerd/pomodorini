@@ -1,94 +1,10 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import { Link as Glink } from 'gatsby';
+
 import Layout from '../components/layout';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { Button, Column, Link } from './_settings.elements';
 
-const Link = styled(Glink)`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
-
-const Button = styled.button`
-  cursor: pointer;
-  border: none;
-  background-color: #6ca37c;
-  padding: 10px 15px;
-  color: white;
-  box-shadow: 4px 4px #474f5c;
-  transition: all 150ms ease-in-out;
-
-  margin: 40px auto;
-
-  &:hover {
-    box-shadow: 3px 3px #474f5c;
-  }
-`;
-
-function useForm({ initialValues, onSubmit } = {}) {
-  const [formState, setFormState] = React.useState(initialValues);
-
-  const handleChange = e =>
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    });
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    onSubmit(formState);
-  };
-
-  return [formState, handleChange, handleSubmit];
-}
-
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const TimerForm = ({ onSubmit, initialValues }) => {
-  const [values, handleChange, handleSubmit] = useForm({
-    initialValues,
-    onSubmit,
-  });
-  return (
-    <Column as="form" onSubmit={handleSubmit}>
-      <label htmlFor="focusTime">Focus Duration: {values.focusTime}min</label>
-      <input
-        type="range"
-        name="focusTime"
-        id="focusTime"
-        min="0"
-        max="90"
-        onChange={handleChange}
-        value={values.focusTime}
-      />
-      <label htmlFor="breakTime">Break Duration: {values.breakTime}min</label>
-      <input
-        type="range"
-        name="breakTime"
-        id="breakTime"
-        min="0"
-        max="90"
-        onChange={handleChange}
-        value={values.breakTime}
-      />
-      <Button type="submit">Use Custom Settings</Button>
-    </Column>
-  );
-};
-
-const Settings = () => {
+function Settings() {
   const [timerSettings, setTimerSettings] = useLocalStorage(
     'pomodoriniTimerSettings',
     { focusTime: 25, breakTime: 5 },
@@ -141,6 +57,55 @@ const Settings = () => {
       </React.Fragment>
     </Layout>
   );
-};
+}
+
+function TimerForm({ onSubmit, initialValues }) {
+  const [values, handleChange, handleSubmit] = useForm({
+    initialValues,
+    onSubmit,
+  });
+  return (
+    <Column as="form" onSubmit={handleSubmit}>
+      <label htmlFor="focusTime">Focus Duration: {values.focusTime}min</label>
+      <input
+        type="range"
+        name="focusTime"
+        id="focusTime"
+        min="0"
+        max="90"
+        onChange={handleChange}
+        value={values.focusTime}
+      />
+      <label htmlFor="breakTime">Break Duration: {values.breakTime}min</label>
+      <input
+        type="range"
+        name="breakTime"
+        id="breakTime"
+        min="0"
+        max="90"
+        onChange={handleChange}
+        value={values.breakTime}
+      />
+      <Button type="submit">Use Custom Settings</Button>
+    </Column>
+  );
+}
+
+function useForm({ initialValues, onSubmit } = {}) {
+  const [formState, setFormState] = React.useState(initialValues);
+
+  const handleChange = e =>
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.value,
+    });
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSubmit(formState);
+  };
+
+  return [formState, handleChange, handleSubmit];
+}
 
 export default Settings;
