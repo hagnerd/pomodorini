@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { rhythm } from '../utils/typography';
-
 import Navigation from './navigation';
+import { rhythm } from '../utils/typography';
 
 const Column = styled.div`
   display: flex;
@@ -13,24 +12,12 @@ const Column = styled.div`
   min-height: 100vh;
 `;
 
-const Footer = styled.footer`
-  width: 100%;
-
-  @media (min-width: 700px) {
-    display: none;
-  }
-`;
-
 export default function Layout({ children }) {
   return (
     <Column>
       <Navigation />
 
       <main>{children}</main>
-
-      <Footer>
-        <p>Controls will go here</p>
-      </Footer>
     </Column>
   );
 }
