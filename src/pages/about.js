@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Layout from '../components/layout';
-import { Content, Title, TitleBg, Button, Text } from './_about.elements';
+import { Content, Title, TitleBg, Button } from './_about.elements';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const About = () => {
