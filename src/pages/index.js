@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useEffect, useRef } from 'react';
 
 import Layout from '../components/layout';
 import PlayIcon from '../components/play-icon';
@@ -40,12 +40,23 @@ const Index = ({ navigate }) => {
     _manuallyFlushTimer,
   } = useCountdown({ initialMinutes: timerSettings[selectedTimer] });
 
-  // useEffect(
-  //   () => {
-  //     _manuallyFlushTimer(timerSettings[selectedTimer]);
-  //   },
-  //   [timerSettings.focusTime, timerSettings.breakTime, selectedTimer],
-  // );
+  const firstRender = useRef(true);
+
+  useLayoutEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+    }
+    console.log('initial render');
+  });
+
+  useEffect(
+    () => {
+      if (!firstRender.current) {
+        _manuallyFlushTimer(timerSettings[selectedTimer]);
+      }
+    },
+    [timerSettings.focusTime, timerSettings.breakTime, selectedTimer],
+  );
 
   if (typeof window !== 'undefined' && !hasVisited) {
     navigate('/about');
